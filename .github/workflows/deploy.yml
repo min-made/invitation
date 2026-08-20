@@ -10,9 +10,15 @@ name: Deploy to GitHub Pages
 #   저장소 Settings → Pages → Source 를 "GitHub Actions" 로 바꿔주세요.
 #   (기본값인 "Deploy from a branch" 로 두면 이 워크플로가 무시됩니다.)
 
+# ⚠ 자동 배포를 껐습니다 (2026-08-20).
+#   push 만으로는 배포되지 않고, Actions 탭에서 "Run workflow" 를
+#   직접 눌러야 실행됩니다. 실명·계좌를 채우는 도중 실수로 게시되는
+#   것을 막기 위한 조치입니다.
+#
+#   다시 자동 배포로 돌리려면 아래 주석을 해제하세요.
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
   workflow_dispatch:
 
 permissions:
