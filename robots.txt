@@ -1,0 +1,94 @@
+# ════════════════════════════════════════════════════════════
+# 크롤러 정책
+#
+# 이 파일은 "요청"이며 기술적 강제가 아닙니다. 무시하는 크롤러도 있습니다.
+# 실제 차단이 아니라 "선의의 크롤러에게 의사를 전달"하는 수단입니다.
+#
+# ── 왜 검색엔진을 Disallow 하지 않는가 (중요) ──
+# robots.txt 로 검색엔진을 막으면 페이지를 아예 읽지 못하고,
+# 그러면 index.html 의 <meta name="robots" content="noindex"> 도 못 봅니다.
+# 이 경우 외부에 링크가 노출되면 "내용 없는 URL"만 색인에 남을 수 있습니다.
+#
+# 확실히 색인에서 빼는 방법은 그 반대입니다 —
+#   크롤링은 허용하고, meta noindex 로 "색인하지 말라"고 지시.
+# 그래서 검색엔진은 Allow 로 두고 실제 배제는 meta 태그가 담당합니다.
+# ════════════════════════════════════════════════════════════
+
+# ── 검색엔진: 읽기 허용 (배제는 meta noindex 가 수행) ──
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: Yeti
+Allow: /
+
+User-agent: Daumoa
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ── 공유 미리보기 스크래퍼: 허용 ──
+# 카카오톡으로 청첩장을 보낼 때 썸네일이 뜨려면 이들이 OG 태그를
+# 읽을 수 있어야 합니다. 막으면 미리보기가 빈 카드로 나갑니다.
+User-agent: kakaotalk-scrap
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# ── AI 학습 크롤러: 거부 ──
+# 웨딩 사진과 개인정보가 학습 데이터로 수집되는 것을 원치 않습니다.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: OAI-SearchBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+# ── 그 외 전부 거부 ──
+User-agent: *
+Disallow: /

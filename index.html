@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#faf7f2">
+
+<!-- ────────────────────────────────────────────────────────────
+     [CUSTOMIZE] 문서 메타 / 카카오톡·SNS 공유 미리보기
+     og:image 는 절대경로여야 카카오톡에서 썸네일이 뜹니다.
+     GitHub Pages 배포 주소로 바꿔주세요.
+     ──────────────────────────────────────────────────────────── -->
+<title data-ph="meta.title">{{신랑이름}} ♥ {{신부이름}} 결혼합니다</title>
+<meta name="description" data-ph="meta.desc" content="2027년 5월 15일 토요일 오후 1시, {{예식장}} {{홀이름}}에서 저희 두 사람이 부부의 연을 맺습니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" data-ph="meta.title" content="{{신랑이름}} ♥ {{신부이름}} 결혼합니다">
+<meta property="og:description" data-ph="meta.desc" content="2027년 5월 15일 토요일 오후 1시, {{예식장}} {{홀이름}}">
+<!-- og:image — assets/img/og.jpg (1800×946, 약 1.90:1)
+     배포 주소 https://min-made.github.io/invitation/ 기준 절대경로입니다.
+     주소가 바뀌면 og:image 와 og:url 을 함께 고쳐야 하며,
+     상대경로로 두면 카카오톡에서 썸네일이 뜨지 않습니다. -->
+<meta property="og:image" data-ph="meta.ogimage" content="https://min-made.github.io/invitation/assets/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1800">
+<meta property="og:image:height" content="946">
+<meta property="og:image:alt" data-ph="meta.ogalt" content="신랑 신부 웨딩 사진">
+<meta property="og:url" data-ph="meta.url" content="https://min-made.github.io/invitation/">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- 검색엔진 수집 거부. 카카오톡 등의 공유 미리보기는 이와 무관하게 동작합니다. -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- 콘텐츠 보안 정책 — 외부 리소스를 일절 불러오지 않습니다.
+     폰트를 셀프 호스팅하므로 'self' 만으로 충분합니다.
+     계좌번호가 표시되는 페이지이므로, 제3자 스크립트가 주입되어
+     내용이 조작되는 경로를 원천 차단하는 것이 목적입니다.
+     ⚠ 나중에 카카오 SDK 나 방명록 엔드포인트를 추가하면
+       script-src / connect-src 에 해당 출처를 반드시 더해야 합니다. -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self';
+               img-src 'self' data:;
+               font-src 'self';
+               style-src 'self';
+               script-src 'self';
+               connect-src 'self';
+               base-uri 'none';
+               form-action 'self';
+               frame-ancestors 'none';
+               object-src 'none'">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+<!-- 폰트는 assets/font/ 에 셀프 호스팅합니다 (tools/fetch_fonts.py 로 생성).
+     외부 CDN 을 쓰지 않으므로 방문자 IP 가 제3자에게 전달되지 않습니다. -->
+<link rel="stylesheet" href="assets/css/fonts.css">
+
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     [0] 오프닝 — 인트로 오버레이
+     data-intro="off" 를 <body>에 주면 비활성화됩니다.
+     ══════════════════════════════════════════════════════════ -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro__inner">
+    <p class="intro__eyebrow">WE ARE GETTING MARRIED</p>
+    <p class="intro__names" data-ph="couple.short">{{신랑이름}} &nbsp;·&nbsp; {{신부이름}}</p>
+    <p class="intro__date" data-ph="wedding.dateShort">2027 . 05 . 15</p>
+  </div>
+</div>
+
+
+<main class="card" id="card">
+
+<!-- ══════════════════════════════════════════════════════════
+     [1] 커버
+     ══════════════════════════════════════════════════════════ -->
+<section class="cover reveal" id="cover">
+  <p class="cover__eyebrow">THE WEDDING OF</p>
+
+  <figure class="cover__photo">
+    <!-- 커버는 첫 화면의 LCP 요소이므로 지연 로딩하지 않습니다.
+         표시 비율(3:4)은 style.css 의 aspect-ratio 가 고정합니다. -->
+    <img src="assets/img/main_photo.jpg" alt="신랑 신부 웨딩 사진"
+         fetchpriority="high" decoding="async">
+  </figure>
+
+  <h1 class="cover__names">
+    <span data-ph="groom.name">{{신랑이름}}</span>
+    <span class="cover__amp">&amp;</span>
+    <span data-ph="bride.name">{{신부이름}}</span>
+  </h1>
+
+  <p class="cover__meta">
+    <span data-ph="wedding.datetime">2027년 5월 15일 토요일 오후 1시</span>
+    <span class="cover__dot"></span>
+    <span data-ph="venue.short">{{예식장}} {{홀이름}}</span>
+  </p>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     [2] 인사말
+     분석 결론: 상투적 문구 대신 짧은 인용 한 줄로 여는 구성이
+     레퍼런스 3건 모두에서 확인됨 → baseline에 반영
+     ══════════════════════════════════════════════════════════ -->
+<section class="sect reveal" id="greeting">
+  <p class="sect__label">INVITATION</p>
+  <h2 class="sect__title">초대합니다</h2>
+
+  <blockquote class="quote" data-ph="greeting.quote">
+    <p>사랑은 서로를 마주 보는 것이 아니라<br>같은 방향을 함께 바라보는 것입니다.</p>
+    <cite>생텍쥐페리</cite>
+  </blockquote>
+
+  <div class="prose" data-ph="greeting.body">
+    <p>
+      함께 걷는 길이 즐거우면<br>
+      그 길이 아무리 멀어도 지치지 않는다고 합니다.
+    </p>
+    <p>
+      서로를 아끼고 존중하며<br>
+      같은 곳을 바라보기로 약속한 저희 두 사람이<br>
+      이제 하나의 가정을 이루려 합니다.
+    </p>
+    <p>
+      귀한 걸음 하시어<br>
+      저희의 시작을 축복해 주시면<br>
+      더없는 기쁨으로 간직하겠습니다.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     [3] 신랑·신부 / 혼주 / 연락처
+     레퍼런스 공통 표기 형식: "○○○ · △△△ 의 아들/딸"
+     연락처는 전화 / 문자 버튼을 분리하는 것이 표준
+     ══════════════════════════════════════════════════════════ -->
+<section class="sect sect--tint reveal" id="family">
+  <p class="sect__label">FAMILY</p>
+  <h2 class="sect__title">신랑 &amp; 신부</h2>
+
+  <ul class="family">
+    <li class="family__row">
+      <p class="family__parents">
+        <span data-ph="groom.father">{{신랑부}}</span>
+        <span class="family__sep">·</span>
+        <span data-ph="groom.mother">{{신랑모}}</span>
+        <span class="family__rel">의 아들</span>
+      </p>
+      <p class="family__person">
+        <span class="family__role">신랑</span>
+        <span class="family__name" data-ph="groom.name">{{신랑이름}}</span>
+      </p>
+      <p class="family__contact">
+        <a class="chip" href="tel:01000000000" data-ph="groom.tel" aria-label="신랑에게 전화">전화</a>
+        <a class="chip" href="sms:01000000000" data-ph="groom.sms" aria-label="신랑에게 문자">문자</a>
+      </p>
+    </li>
+
+    <li class="family__row">
+      <p class="family__parents">
+        <span data-ph="bride.father">{{신부부}}</span>
+        <span class="family__sep">·</span>
+        <span data-ph="bride.mother">{{신부모}}</span>
+        <span class="family__rel">의 딸</span>
+      </p>
+      <p class="family__person">
+        <span class="family__role">신부</span>
+        <span class="family__name" data-ph="bride.name">{{신부이름}}</span>
+      </p>
+      <p class="family__contact">
+        <a class="chip" href="tel:01000000000" data-ph="bride.tel" aria-label="신부에게 전화">전화</a>
+        <a class="chip" href="sms:01000000000" data-ph="bride.sms" aria-label="신부에게 문자">문자</a>
+      </p>
+    </li>
+  </ul>
+
+  <details class="disclose">
+    <summary>혼주에게 연락하기</summary>
+    <ul class="disclose__list">
+      <li><span class="side side--groom">신랑 아버지</span><a class="chip" href="tel:01000000000" data-ph="groom.fatherTel">전화</a></li>
+      <li><span class="side side--groom">신랑 어머니</span><a class="chip" href="tel:01000000000" data-ph="groom.motherTel">전화</a></li>
+      <li><span class="side side--bride">신부 아버지</span><a class="chip" href="tel:01000000000" data-ph="bride.fatherTel">전화</a></li>
+      <li><span class="side side--bride">신부 어머니</span><a class="chip" href="tel:01000000000" data-ph="bride.motherTel">전화</a></li>
+    </ul>
+  </details>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     [4]+[5] 예식 일시 · 캘린더 · D-day
+     날짜 텍스트는 정적 HTML(크롤러 노출), 달력 격자만 JS 생성
+     ══════════════════════════════════════════════════════════ -->
+<section class="sect reveal" id="when">
+  <p class="sect__label">DATE</p>
+  <h2 class="sect__title">예식 일시</h2>
+
+  <p class="when__date" data-ph="wedding.datetime">2027년 5월 15일 토요일 오후 1시</p>
+  <p class="when__venue">
+    <span data-ph="venue.name">{{예식장}}</span>
+    <span data-ph="venue.hall">{{홀이름}}</span>
+  </p>
+
+  <!-- data-wedding: 달력·D-day 계산 기준 (YYYY-MM-DDTHH:mm) -->
+  <div class="calendar" id="calendar" data-wedding="2027-05-15T13:00"></div>
+
+  <p class="dday" id="dday" aria-live="polite"></p>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     [6] 갤러리
+     ══════════════════════════════════════════════════════════ -->
+<section class="sect sect--tint reveal" id="gallery">
+  <p class="sect__label">GALLERY</p>
+  <h2 class="sect__title">우리의 순간</h2>
+
+  <!-- 파일명 순서 그대로 (list_0 … list_12). 표시 비율(1:1)은 CSS 가 고정합니다.
+       확장자는 전부 소문자 .jpg 로 통일돼 있습니다. GitHub Pages 는 대소문자를
+       구분하지만 macOS 는 구분하지 않으므로, 철자가 틀려도 로컬에서는 잡히지
+       않습니다. 파일명을 바꿀 때는 실제 파일과 대소문자까지 일치시키세요. -->
+  <ul class="grid" id="grid">
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_0.jpg"  alt="웨딩 사진 1"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_1.jpg"  alt="웨딩 사진 2"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_2.jpg"  alt="웨딩 사진 3"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_3.jpg"  alt="웨딩 사진 4"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_4.jpg"  alt="웨딩 사진 5"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_5.jpg"  alt="웨딩 사진 6"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_6.jpg"  alt="웨딩 사진 7"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_7.jpg"  alt="웨딩 사진 8"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_8.jpg"  alt="웨딩 사진 9"  loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_9.jpg"  alt="웨딩 사진 10" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_10.jpg" alt="웨딩 사진 11" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_11.jpg" alt="웨딩 사진 12" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_12.jpg" alt="웨딩 사진 13" loading="lazy" decoding="async"></button></li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     [7] 오시는 길
+     지도앱 3종 딥링크 + 대중교통 + 주차 (분석: 주차 안내 구체성이
+     실제 하객 체감을 가르는 지점)
+     ══════════════════════════════════════════════════════════ -->
+<section class="sect reveal" id="location">
+  <p class="sect__label">LOCATION</p>
+  <h2 class="sect__title">오시는 길</h2>
+
+  <p class="loc__venue" data-ph="venue.name">{{예식장}} {{홀이름}}</p>
+  <p class="loc__addr" data-ph="venue.address">서울특별시 강남구 테헤란로 123</p>
+  <p class="loc__tel"><a href="tel:0200000000" data-ph="venue.tel">02-000-0000</a></p>
+
+  <!-- [CUSTOMIZE] 실제 지도: 네이버/카카오 지도 API 키 발급 후 이 박스를 교체 -->
+  <div class="map" id="map" role="img" aria-label="예식장 위치 지도">
+    <span class="map__hint">지도 영역<br><small>네이버/카카오 지도 API로 교체</small></span>
+  </div>
+
+  <div class="btnrow">
+    <a class="btn" data-map="naver" href="#" target="_blank" rel="noopener">네이버지도</a>
+    <a class="btn" data-map="kakao" href="#" target="_blank" rel="noopener">카카오맵</a>
+    <a class="btn" data-map="tmap"  href="#" target="_blank" rel="noopener">티맵</a>
+  </div>
+
+  <dl class="info">
+    <dt>지하철</dt>
+    <dd data-ph="loc.subway">2호선 · 신분당선 강남역 4번 출구에서 도보 5분</dd>
+
+    <dt>버스</dt>
+    <dd data-ph="loc.bus">간선 140, 402, 470 / 지선 4412 — ○○빌딩 정류장 하차</dd>
+
+    <dt>자가용</dt>
+    <dd data-ph="loc.car">내비게이션에 <b>“{{예식장}}”</b> 검색</dd>
+
+    <dt>주차</dt>
+    <dd data-ph="loc.parking">건물 지하 1~4층 200대 주차 가능 (2시간 무료)<br>만차 시 인근 ○○공영주차장 이용 — 안내요원 배치</dd>
+  </dl>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     [8] 마음 전하실 곳
+     표준 패턴: 혼주 포함 6계좌 + 개별 복사 버튼 + 카카오페이
+     ══════════════════════════════════════════════════════════ -->
+<section class="sect sect--tint reveal" id="gift">
+  <p class="sect__label">GIFT</p>
+  <h2 class="sect__title">마음 전하실 곳</h2>
+
+  <p class="sect__lead">
+    참석이 어려우신 분들을 위해<br>
+    계좌번호를 안내드립니다.<br>
+    전해주시는 마음 감사히 간직하겠습니다.
+  </p>
+
+  <details class="acc">
+    <summary class="acc__head">신랑측 계좌번호</summary>
+    <ul class="acc__list">
+      <li class="acct">
+        <div class="acct__who"><span class="acct__rel">신랑</span> <span data-ph="groom.name">{{신랑이름}}</span></div>
+        <div class="acct__no"><span data-ph="groom.bank">국민은행 000000-00-000000</span></div>
+        <button type="button" class="chip chip--copy" data-copy="국민은행 000000-00-000000">복사</button>
+      </li>
+      <li class="acct">
+        <div class="acct__who"><span class="acct__rel">아버지</span> <span data-ph="groom.father">{{신랑부}}</span></div>
+        <div class="acct__no"><span data-ph="groom.fatherBank">신한은행 000-000-000000</span></div>
+        <button type="button" class="chip chip--copy" data-copy="신한은행 000-000-000000">복사</button>
+      </li>
+      <li class="acct">
+        <div class="acct__who"><span class="acct__rel">어머니</span> <span data-ph="groom.mother">{{신랑모}}</span></div>
+        <div class="acct__no"><span data-ph="groom.motherBank">농협 000-0000-0000-00</span></div>
+        <button type="button" class="chip chip--copy" data-copy="농협 000-0000-0000-00">복사</button>
+      </li>
+    </ul>
+  </details>
+
+  <details class="acc">
+    <summary class="acc__head">신부측 계좌번호</summary>
+    <ul class="acc__list">
+      <li class="acct">
+        <div class="acct__who"><span class="acct__rel">신부</span> <span data-ph="bride.name">{{신부이름}}</span></div>
+        <div class="acct__no"><span data-ph="bride.bank">카카오뱅크 0000-00-0000000</span></div>
+        <button type="button" class="chip chip--copy" data-copy="카카오뱅크 0000-00-0000000">복사</button>
+      </li>
+      <li class="acct">
+        <div class="acct__who"><span class="acct__rel">아버지</span> <span data-ph="bride.father">{{신부부}}</span></div>
+        <div class="acct__no"><span data-ph="bride.fatherBank">우리은행 0000-000-000000</span></div>
+        <button type="button" class="chip chip--copy" data-copy="우리은행 0000-000-000000">복사</button>
+      </li>
+      <li class="acct">
+        <div class="acct__who"><span class="acct__rel">어머니</span> <span data-ph="bride.mother">{{신부모}}</span></div>
+        <div class="acct__no"><span data-ph="bride.motherBank">하나은행 000-000000-00000</span></div>
+        <button type="button" class="chip chip--copy" data-copy="하나은행 000-000000-00000">복사</button>
+      </li>
+    </ul>
+  </details>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     [9] 방명록
+     ══════════════════════════════════════════════════════════ -->
+<section class="sect reveal" id="guestbook">
+  <p class="sect__label">GUESTBOOK</p>
+  <h2 class="sect__title">축하의 한마디</h2>
+
+  <form class="form form--inline" id="gbForm" novalidate>
+    <label class="field">
+      <span class="field__label">이름</span>
+      <input type="text" name="name" required placeholder="이름">
+    </label>
+    <label class="field">
+      <span class="field__label">메시지</span>
+      <textarea name="message" rows="3" required placeholder="따뜻한 축하의 말씀을 남겨주세요"></textarea>
+    </label>
+    <button type="submit" class="btn btn--primary">축하 남기기</button>
+    <p class="form__msg" id="gbMsg" role="status"></p>
+  </form>
+
+  <ul class="gb" id="gbList">
+    <li class="gb__item">
+      <p class="gb__meta"><b>미리보기</b><time>2026.08.17</time></p>
+      <p class="gb__body">작성된 축하 메시지가 이 자리에 쌓입니다.</p>
+    </li>
+  </ul>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     [10] 공유하기
+     ══════════════════════════════════════════════════════════ -->
+<section class="sect sect--tint reveal" id="share">
+  <p class="sect__label">SHARE</p>
+  <h2 class="sect__title">청첩장 공유하기</h2>
+
+  <div class="btnrow">
+    <button type="button" class="btn" id="shareKakao">카카오톡 공유</button>
+    <button type="button" class="btn" id="shareLink">링크 복사</button>
+  </div>
+</section>
+
+
+<footer class="foot">
+  <p class="foot__names">
+    <span data-ph="groom.name">{{신랑이름}}</span>
+    <span>&amp;</span>
+    <span data-ph="bride.name">{{신부이름}}</span>
+  </p>
+  <p class="foot__thanks">소중한 걸음으로 축복해 주셔서 감사합니다.</p>
+</footer>
+
+</main>
+
+
+<!-- BGM 토글 -->
+<button type="button" class="bgm" id="bgm" aria-pressed="false" aria-label="배경음악 재생">
+  <span class="bgm__icon" aria-hidden="true"></span>
+</button>
+<!-- [CUSTOMIZE] assets/audio/bgm.mp3 를 넣으면 활성화됩니다 -->
+<audio id="bgmAudio" src="assets/audio/bgm.mp3" loop preload="none"></audio>
+
+<!-- 갤러리 라이트박스 -->
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lightbox__close" aria-label="닫기">&times;</button>
+  <button type="button" class="lightbox__nav lightbox__nav--prev" aria-label="이전">&#8249;</button>
+  <img class="lightbox__img" src="" alt="">
+  <button type="button" class="lightbox__nav lightbox__nav--next" aria-label="다음">&#8250;</button>
+  <p class="lightbox__count"></p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
