@@ -44,6 +44,7 @@ jobs:
           cp -R assets dist/
           cp .nojekyll dist/ 2>/dev/null || true
           cp robots.txt dist/ 2>/dev/null || true
+          cp sw.js dist/ 2>/dev/null || true      # 오프라인 캐시 (사진 제외)
 
       - name: 제외 확인 (문서·도구가 섞이지 않았는지)
         run: |

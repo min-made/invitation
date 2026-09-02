@@ -56,6 +56,10 @@
 
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/style.css">
+
+<!-- 부가 기능 스타일.
+     켜고 끄기는 assets/js/features.js 상단의 FEATURES 객체에서 합니다. -->
+<link rel="stylesheet" href="assets/css/features.css">
 </head>
 
 <body>
@@ -277,7 +281,7 @@
     <dd data-ph="loc.car">내비게이션에 <b>“{{예식장}}”</b> 검색</dd>
 
     <dt>주차</dt>
-    <dd data-ph="loc.parking">건물 지하 1~4층 200대 주차 가능 (2시간 무료)<br>만차 시 인근 ○○공영주차장 이용 — 안내요원 배치</dd>
+    <dd data-ph="loc.parking">건물 지하 ○층~○층 ○○대 주차 가능 (○시간 무료)<br>만차 시 인근 ○○공영주차장 이용 — 안내요원 배치</dd>
   </dl>
 </section>
 
@@ -414,5 +418,9 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="assets/js/main.js"></script>
+
+<!-- 부가 기능 (시간 인식 · 하객 이름 · 오프라인 캐시 등).
+     이 줄과 위 features.css 줄을 지우면 baseline 으로 완전히 돌아갑니다. -->
+<script src="assets/js/features.js"></script>
 </body>
 </html>
