@@ -46,6 +46,18 @@ jobs:
           cp robots.txt dist/ 2>/dev/null || true
           cp sw.js dist/ 2>/dev/null || true      # 오프라인 캐시 (사진 제외)
 
+      - name: 서비스 워커 캐시 버전 갱신
+        # sw.js 의 CACHE 이름을 커밋 해시로 바꿉니다.
+        # 이걸 안 하면 하객 단말이 예전에 캐시한 화면을 계속 봅니다.
+        # 원본 sw.js 는 건드리지 않고 dist/ 사본만 고칩니다.
+        run: |
+          if [ -f dist/sw.js ]; then
+            sed -i "s/const CACHE = '[^']*'/const CACHE = 'invi-${GITHUB_SHA::7}'/" dist/sw.js
+            grep -n "const CACHE" dist/sw.js
+            grep -q "const CACHE = 'invi-${GITHUB_SHA::7}'" dist/sw.js \
+              || { echo "::error::sw.js 캐시 버전 치환 실패"; exit 1; }
+          fi
+
       - name: 제외 확인 (문서·도구가 섞이지 않았는지)
         run: |
           echo "── dist/ 최상위 ──"
