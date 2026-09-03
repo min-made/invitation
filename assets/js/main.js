@@ -28,9 +28,9 @@
        또한 CSP 를 걸어 두었으므로(index.html 참고) 외부 도메인으로
        fetch 하려면 connect-src 에 그 출처를 추가해야 합니다.
      ────────────────────────────────────────────────────────── */
-  var ENDPOINTS = {
-    guestbook: ''    // 예: 'https://script.google.com/macros/s/xxxx/exec'
-  };
+  // 저장 주소는 index.html 의 <section id="guestbook" data-endpoint="...">
+  // 에서 읽습니다. 설정을 HTML 한 곳에 모으기 위한 것이며(data-wedding 과 동일),
+  // features.js 의 목록/인원 표시도 같은 값을 씁니다.
 
   /* [CUSTOMIZE] 카카오 JavaScript 키 — 넣으면 카카오톡 공유가 활성화됩니다.
      https://developers.kakao.com → 내 애플리케이션 → 앱 키
@@ -145,9 +145,11 @@
 
     var urls = {
       naver: 'https://map.naver.com/p/search/' + q,
-      kakao: 'https://map.kakao.com/?q=' + q,
-      // 앱 미설치 시 동작하지 않습니다. 정확한 좌표 기반 링크로 교체 권장.
-      tmap:  'https://apis.openapi.sk.com/tmap/app/routes?appKey=&name=' + q
+      kakao: 'https://map.kakao.com/?q=' + q
+      // 티맵은 SK open API 의 appKey 가 필요합니다. 키 없이는 요청이 실패하므로
+      // 버튼과 함께 제거했습니다. 예식장 좌표가 확정되면 아래처럼 되살리세요.
+      //   tmap: 'https://apis.openapi.sk.com/tmap/app/routes'
+      //         + '?appKey=<발급받은키>&name=' + q + '&lon=<경도>&lat=<위도>'
     };
 
     $$('[data-map]').forEach(function (a) {
@@ -216,6 +218,41 @@
 
     cells.forEach(function (c, i) { c.addEventListener('click', function () { open(i); }); });
     $('.lightbox__close', box).addEventListener('click', close);
+
+    /* ── 스와이프 (사진 21장이라 버튼만으로는 불편) ──────────
+       판정 조건 세 가지를 모두 만족해야 넘깁니다.
+         · 수평 이동 45px 이상        — 우연한 탭 제외
+         · 수평이 수직의 1.5배 이상   — 세로 스크롤 제스처와 구분
+         · 600ms 이내                 — 천천히 끄는 동작 제외
+       스와이프로 인정된 경우 뒤따르는 click 을 한 번 무시합니다.
+       그러지 않으면 배경에서 손을 뗄 때 닫기 핸들러가 같이 발동합니다. */
+    var sx = 0, sy = 0, st = 0, swiped = false;
+
+    box.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) return;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      st = e.timeStamp;
+      swiped = false;
+    }, { passive: true });
+
+    box.addEventListener('touchend', function (e) {
+      if (!st || e.changedTouches.length !== 1) return;
+      var dx = e.changedTouches[0].clientX - sx;
+      var dy = e.changedTouches[0].clientY - sy;
+      var dt = e.timeStamp - st;
+      st = 0;
+      if (Math.abs(dx) < 45) return;
+      if (Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      if (dt > 600) return;
+      swiped = true;
+      open(dx < 0 ? idx + 1 : idx - 1);
+    }, { passive: true });
+
+    // 스와이프 직후의 click 무효화 (배경 탭 = 닫기 와 충돌 방지)
+    box.addEventListener('click', function (e) {
+      if (swiped) { swiped = false; e.stopPropagation(); }
+    }, true);
     $('.lightbox__nav--prev', box).addEventListener('click', function () { open(idx - 1); });
     $('.lightbox__nav--next', box).addEventListener('click', function () { open(idx + 1); });
     box.addEventListener('click', function (e) { if (e.target === box) close(); });
@@ -280,9 +317,14 @@
   /* ── [9][10] 폼 전송 ────────────────────────────── */
   function submitTo(url, data) {
     if (!url) return Promise.reject(new Error('no-endpoint'));
+    // Content-Type 을 text/plain 으로 보냅니다.
+    // application/json 이면 브라우저가 preflight(OPTIONS)를 먼저 보내는데
+    // Apps Script 웹앱은 OPTIONS 를 처리하지 못해 요청이 실패합니다.
+    // text/plain 은 "단순 요청"이라 preflight 가 발생하지 않습니다.
+    // (Formspree 등으로 바꾸면 application/json 이 필요할 수 있습니다)
     return fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(data)
     }).then(function (r) {
       if (!r.ok) throw new Error('http-' + r.status);
@@ -300,6 +342,8 @@
   // 방명록
   (function guestbook() {
     var form = $('#gbForm'), msg = $('#gbMsg'), list = $('#gbList');
+    var sect = $('#guestbook');
+    var endpoint = (sect && sect.dataset.endpoint) || '';
     if (!form || !list) return;
 
     function render(entries) {
@@ -322,7 +366,8 @@
         String(d.getDate()).padStart(2, '0');
     }
 
-    if (!ENDPOINTS.guestbook) {
+    // 엔드포인트가 없으면 로컬에 쌓인 본인 메시지만 보여줍니다(미리보기).
+    if (!endpoint) {
       render(JSON.parse(localStorage.getItem('guestbook') || '[]'));
     }
 
@@ -331,10 +376,12 @@
       if (!form.reportValidity()) return;
 
       var data = formData(form);
-      submitTo(ENDPOINTS.guestbook, data)
+      submitTo(endpoint, data)
         .then(function () {
           form.reset();
-          msg.textContent = '축하 메시지가 등록되었습니다.';
+          msg.textContent = '축하 메시지가 전달되었습니다.';
+          // features.js 가 목록·인원을 다시 불러올 수 있게 알립니다.
+          document.dispatchEvent(new CustomEvent('guestbook:sent'));
         })
         .catch(function (err) {
           if (err.message === 'no-endpoint') {

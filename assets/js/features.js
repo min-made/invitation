@@ -25,7 +25,15 @@
     addCalendar:  true,   // [6] 하객 캘린더에 예식 일정 추가
     miniNav:      true,   // [7] 하단 고정 미니 내비
     paperTexture: true,   // [10] 한지 질감 배경
-    bloom:        true    // [12] D-day 에 따라 피어나는 꽃
+    bloom:        true,   // [12] D-day 에 따라 피어나는 꽃
+
+    // 방명록 공개 범위
+    //   true  → ③ 하객들이 쓴 축하를 전부 목록으로 보여줍니다
+    //   false → ② 목록은 숨기고 참여 인원만 보여줍니다
+    // ⚠ 이 스위치는 화면 표시만 바꿉니다. 실제 노출을 막으려면
+    //   Apps Script 의 PUBLIC_LIST 도 false 로 바꿔야 합니다.
+    //   (tools/apps_script_guestbook.gs 참고)
+    guestbookList: true
   };
   /* ══════════════════════════════════════════════════════════
      ▲▲▲  여기까지  ▲▲▲
@@ -265,6 +273,97 @@
     var t = d === null ? 1 : Math.max(0, Math.min(1, 1 - d / 100));
     root.style.setProperty('--bloom', t.toFixed(3));
     cover.classList.add('has-bloom');
+  })();
+
+
+  /* ══════════════════════════════════════════════════════════
+     방명록 읽기 — 전체 목록(③) 또는 참여 인원(②)
+
+     주소는 index.html 의 <section id="guestbook" data-endpoint="...">
+     에서 읽습니다. 비어 있으면 아무것도 하지 않습니다
+     (미리보기 모드는 main.js 가 담당).
+
+     ⚠ guestbookList=false 로 두어도 서버가 목록을 계속 내려주면
+       주소를 아는 사람은 여전히 전부 볼 수 있습니다.
+       Apps Script 의 PUBLIC_LIST 도 함께 false 로 바꾸세요.
+     ══════════════════════════════════════════════════════════ */
+  (function guestbookRead() {
+    var sect = $('#guestbook');
+    var list = $('#gbList');
+    if (!sect || !list) return;
+
+    var url = sect.dataset.endpoint || '';
+    if (!url) return;
+
+    var wantList = !!FEATURES.guestbookList;
+    var countEl = null;
+
+    function fmt(iso) {
+      var d = new Date(iso);
+      if (isNaN(d)) return '';
+      var p = function (n) { return String(n).padStart(2, '0'); };
+      return d.getFullYear() + '.' + p(d.getMonth() + 1) + '.' + p(d.getDate());
+    }
+
+    function showCount(n) {
+      if (!countEl) {
+        countEl = document.createElement('p');
+        countEl.className = 'gbcount';
+        list.parentNode.insertBefore(countEl, list);
+      }
+      countEl.textContent = n > 0
+        ? n + '명이 축하를 남겨주셨습니다.'
+        : '첫 번째 축하를 남겨주세요.';
+    }
+
+    // 서버 값을 DOM 에 넣을 때는 textContent 만 씁니다.
+    // 하객이 입력한 내용이므로 innerHTML 로 넣으면 주입 위험이 있습니다.
+    function showList(entries) {
+      list.textContent = '';
+      entries.forEach(function (e) {
+        var li = document.createElement('li');
+        li.className = 'gb__item';
+
+        var meta = document.createElement('p');
+        meta.className = 'gb__meta';
+        var b = document.createElement('b');
+        b.textContent = e.name || '';
+        var time = document.createElement('time');
+        time.textContent = fmt(e.submittedAt);
+        meta.appendChild(b);
+        meta.appendChild(time);
+
+        var body = document.createElement('p');
+        body.className = 'gb__body';
+        body.textContent = e.message || '';
+
+        li.appendChild(meta);
+        li.appendChild(body);
+        list.appendChild(li);
+      });
+    }
+
+    function load() {
+      var q = url + (url.indexOf('?') === -1 ? '?' : '&')
+            + 'mode=' + (wantList ? 'list' : 'count');
+      fetch(q, { cache: 'no-store' })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (wantList && Array.isArray(d.entries)) {
+            showList(d.entries);
+            showCount(typeof d.count === 'number' ? d.count : d.entries.length);
+          } else if (typeof d.count === 'number') {
+            list.hidden = true;
+            showCount(d.count);
+          }
+        })
+        .catch(function () { /* 조회 실패는 조용히 무시 — 작성은 계속 가능 */ });
+    }
+
+    load();
+    document.addEventListener('guestbook:sent', function () {
+      setTimeout(load, 1200);
+    });
   })();
 
 })();

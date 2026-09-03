@@ -180,3 +180,15 @@
   .mininav { transition: none; }
   .has-bloom::after { transition: none; }
 }
+
+
+/* ── 방명록 참여 인원 ─────────────────────────────────────
+   guestbookList=false (②) 일 때 목록 대신 표시됩니다.
+   true (③) 일 때는 목록 위에 함께 놓입니다. */
+.gbcount {
+  margin: 0 0 22px;
+  font-size: var(--fs-cap);
+  color: var(--c-ink-faint);
+  letter-spacing: .01em;
+}
+.gbcount + .gb { margin-top: 0; }

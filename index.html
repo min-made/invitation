@@ -11,10 +11,10 @@
      GitHub Pages 배포 주소로 바꿔주세요.
      ──────────────────────────────────────────────────────────── -->
 <title data-ph="meta.title">{{신랑이름}} ♥ {{신부이름}} 결혼합니다</title>
-<meta name="description" data-ph="meta.desc" content="2027년 5월 15일 토요일 오후 1시, {{예식장}} {{홀이름}}에서 저희 두 사람이 부부의 연을 맺습니다.">
+<meta name="description" data-ph="meta.desc" content="2027년 5월 15일 토요일 오후 1시, {{예식장}}에서 저희 두 사람이 부부의 연을 맺습니다.">
 <meta property="og:type" content="website">
 <meta property="og:title" data-ph="meta.title" content="{{신랑이름}} ♥ {{신부이름}} 결혼합니다">
-<meta property="og:description" data-ph="meta.desc" content="2027년 5월 15일 토요일 오후 1시, {{예식장}} {{홀이름}}">
+<meta property="og:description" data-ph="meta.desc" content="2027년 5월 15일 토요일 오후 1시, {{예식장}}">
 <!-- og:image — assets/img/og.jpg (1800×946, 약 1.90:1)
      배포 주소 https://min-made.github.io/invitation/ 기준 절대경로입니다.
      주소가 바뀌면 og:image 와 og:url 을 함께 고쳐야 하며,
@@ -34,15 +34,16 @@
      폰트를 셀프 호스팅하므로 'self' 만으로 충분합니다.
      계좌번호가 표시되는 페이지이므로, 제3자 스크립트가 주입되어
      내용이 조작되는 경로를 원천 차단하는 것이 목적입니다.
-     ⚠ 나중에 카카오 SDK 나 방명록 엔드포인트를 추가하면
-       script-src / connect-src 에 해당 출처를 반드시 더해야 합니다. -->
+     connect-src 에 Apps Script 두 출처가 들어 있습니다. 응답이
+     script.googleusercontent.com 으로 리다이렉트되므로 둘 다 필요합니다.
+     ⚠ 카카오 SDK 를 추가하면 script-src 에 그 출처도 더해야 합니다. -->
 <meta http-equiv="Content-Security-Policy"
       content="default-src 'self';
                img-src 'self' data:;
                font-src 'self';
                style-src 'self';
                script-src 'self';
-               connect-src 'self';
+               connect-src 'self' https://script.google.com https://script.googleusercontent.com;
                base-uri 'none';
                form-action 'self';
                frame-ancestors 'none';
@@ -101,7 +102,7 @@
   <p class="cover__meta">
     <span data-ph="wedding.datetime">2027년 5월 15일 토요일 오후 1시</span>
     <span class="cover__dot"></span>
-    <span data-ph="venue.short">{{예식장}} {{홀이름}}</span>
+    <span data-ph="venue.short">{{예식장}}</span>
   </p>
 </section>
 
@@ -205,10 +206,7 @@
   <h2 class="sect__title">예식 일시</h2>
 
   <p class="when__date" data-ph="wedding.datetime">2027년 5월 15일 토요일 오후 1시</p>
-  <p class="when__venue">
-    <span data-ph="venue.name">{{예식장}}</span>
-    <span data-ph="venue.hall">{{홀이름}}</span>
-  </p>
+  <p class="when__venue" data-ph="venue.name">{{예식장}}</p>
 
   <!-- data-wedding: 달력·D-day 계산 기준 (YYYY-MM-DDTHH:mm) -->
   <div class="calendar" id="calendar" data-wedding="2027-05-15T13:00"></div>
@@ -242,6 +240,14 @@
     <li><button type="button" class="grid__cell"><img src="assets/img/list_10.jpg" alt="웨딩 사진 11" loading="lazy" decoding="async"></button></li>
     <li><button type="button" class="grid__cell"><img src="assets/img/list_11.jpg" alt="웨딩 사진 12" loading="lazy" decoding="async"></button></li>
     <li><button type="button" class="grid__cell"><img src="assets/img/list_12.jpg" alt="웨딩 사진 13" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_new_0.jpg" alt="웨딩 사진 14" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_new_1.jpg" alt="웨딩 사진 15" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_new_2.jpg" alt="웨딩 사진 16" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_new_3.jpg" alt="웨딩 사진 17" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_new_4.jpg" alt="웨딩 사진 18" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_new_5.jpg" alt="웨딩 사진 19" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_new_6.jpg" alt="웨딩 사진 20" loading="lazy" decoding="async"></button></li>
+    <li><button type="button" class="grid__cell"><img src="assets/img/list_new_7.jpg" alt="웨딩 사진 21" loading="lazy" decoding="async"></button></li>
   </ul>
 </section>
 
@@ -255,7 +261,7 @@
   <p class="sect__label">LOCATION</p>
   <h2 class="sect__title">오시는 길</h2>
 
-  <p class="loc__venue" data-ph="venue.name">{{예식장}} {{홀이름}}</p>
+  <p class="loc__venue" data-ph="venue.name">{{예식장}}</p>
   <p class="loc__addr" data-ph="venue.address">서울특별시 강남구 테헤란로 123</p>
   <p class="loc__tel"><a href="tel:0200000000" data-ph="venue.tel">02-000-0000</a></p>
 
@@ -267,7 +273,12 @@
   <div class="btnrow">
     <a class="btn" data-map="naver" href="#" target="_blank" rel="noopener">네이버지도</a>
     <a class="btn" data-map="kakao" href="#" target="_blank" rel="noopener">카카오맵</a>
-    <a class="btn" data-map="tmap"  href="#" target="_blank" rel="noopener">티맵</a>
+    <!-- 티맵은 제거했습니다.
+         SK open API 의 appKey 가 없으면 링크가 동작하지 않아, 하객이 눌렀을 때
+         실패하는 버튼이 됩니다. 예식장 좌표가 확정되면 아래를 되살리세요.
+         main.js 의 urls.tmap 도 함께 주석 해제해야 합니다.
+      <a class="btn" data-map="tmap"  href="#" target="_blank" rel="noopener">티맵</a>
+    -->
   </div>
 
   <dl class="info">
@@ -283,6 +294,41 @@
     <dt>주차</dt>
     <dd data-ph="loc.parking">건물 지하 ○층~○층 ○○대 주차 가능 (○시간 무료)<br>만차 시 인근 ○○공영주차장 이용 — 안내요원 배치</dd>
   </dl>
+
+  <!-- ────────────────────────────────────────────────────────
+       대절 버스 안내 (신랑측 하객)
+       신랑측 연고지에서 출발·귀가하는 전세버스 공지입니다.
+       해당 사항이 없어지면 이 <div class="shuttle"> 블록을 통째로 삭제하세요.
+       ──────────────────────────────────────────────────────── -->
+  <div class="shuttle">
+    <p class="shuttle__head">
+      <span class="side side--groom">신랑측</span> 대절 버스 안내
+    </p>
+
+    <dl class="info">
+      <dt>탑승 장소</dt>
+      <dd data-ph="bus.place">○○시 ○○구 ○○동 — ○○ 앞<br>주차 후 탑승 가능</dd>
+
+      <dt>출발</dt>
+      <dd data-ph="bus.depart">예식일 오전 <b>○시 ○분</b> 출발<br>10분 전까지 도착해 주세요</dd>
+
+      <dt>귀가</dt>
+      <dd data-ph="bus.return">예식 종료 후 오후 <b>○시 ○분</b> 출발<br>예식장 정문 앞에서 탑승</dd>
+
+      <dt>소요 시간</dt>
+      <dd data-ph="bus.duration">편도 약 ○시간 ○○분 (교통 상황에 따라 달라질 수 있습니다)</dd>
+    </dl>
+
+    <p class="shuttle__note" data-ph="bus.note">
+      좌석 확보를 위해 탑승 여부를 미리 알려주시면 감사하겠습니다.
+    </p>
+
+    <p class="shuttle__contact">
+      <span>탑승 문의</span>
+      <a class="chip" href="tel:01000000000" data-ph="bus.tel">전화</a>
+      <a class="chip" href="sms:01000000000" data-ph="bus.sms">문자</a>
+    </p>
+  </div>
 </section>
 
 
@@ -347,7 +393,10 @@
 <!-- ══════════════════════════════════════════════════════════
      [9] 방명록
      ══════════════════════════════════════════════════════════ -->
-<section class="sect reveal" id="guestbook">
+<!-- data-endpoint: 방명록 저장 주소. 비워두면 미리보기 모드(로컬 저장)입니다.
+     Apps Script 웹앱 URL 을 넣으세요 — tools/apps_script_guestbook.gs 참고.
+     ⚠ 이 값은 브라우저에 그대로 노출됩니다. 쓰기 전용으로 배포하세요. -->
+<section class="sect reveal" id="guestbook" data-endpoint="https://script.google.com/macros/s/AKfycbzlGiZGK7Di5cUlHPAVJpuiTVgYOdNK0mxkeNgJOCVEHk7Esp2d6yl7dvf5Qv65Ets6JQ/exec">
   <p class="sect__label">GUESTBOOK</p>
   <h2 class="sect__title">축하의 한마디</h2>
 
@@ -364,12 +413,10 @@
     <p class="form__msg" id="gbMsg" role="status"></p>
   </form>
 
-  <ul class="gb" id="gbList">
-    <li class="gb__item">
-      <p class="gb__meta"><b>미리보기</b><time>2026.08.17</time></p>
-      <p class="gb__body">작성된 축하 메시지가 이 자리에 쌓입니다.</p>
-    </li>
-  </ul>
+  <!-- 목록은 features.js 가 채웁니다.
+       FEATURES.guestbookList = true  → 전체 목록 표시 (③)
+                              = false → 참여 인원만 표시 (②) -->
+  <ul class="gb" id="gbList"></ul>
 </section>
 
 
