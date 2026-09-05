@@ -264,27 +264,8 @@
     });
   })();
 
-
-  /* ── BGM ────────────────────────────────────────── */
-  (function bgm() {
-    var btn = $('#bgm'), audio = $('#bgmAudio');
-    if (!btn || !audio) return;
-
-    btn.addEventListener('click', function () {
-      if (audio.paused) {
-        audio.play().then(function () {
-          btn.setAttribute('aria-pressed', 'true');
-          btn.setAttribute('aria-label', '배경음악 정지');
-        }).catch(function () {
-          toast('assets/audio/bgm.mp3 를 넣어주세요');
-        });
-      } else {
-        audio.pause();
-        btn.setAttribute('aria-pressed', 'false');
-        btn.setAttribute('aria-label', '배경음악 재생');
-      }
-    });
-  })();
+  // BGM 은 사용하지 않기로 했습니다. index.html 의 주석 처리된
+  // 버튼·오디오 요소를 되살릴 때 이 블록도 git 이력에서 복원하세요.
 
 
   /* ── [11] 공유 ──────────────────────────────────── */
@@ -392,7 +373,7 @@
             form.reset();
             msg.textContent = '미리보기 모드로 저장했습니다.';
           } else {
-            msg.textContent = '등록에 실패했습니다.';
+            msg.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
           }
         });
     });

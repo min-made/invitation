@@ -11,10 +11,10 @@
      GitHub Pages 배포 주소로 바꿔주세요.
      ──────────────────────────────────────────────────────────── -->
 <title data-ph="meta.title">{{신랑이름}} ♥ {{신부이름}} 결혼합니다</title>
-<meta name="description" data-ph="meta.desc" content="2027년 5월 15일 토요일 오후 1시, {{예식장}}에서 저희 두 사람이 부부의 연을 맺습니다.">
+<meta name="description" data-ph="meta.desc" content="2026년 10월 31일 토요일 오후 2시, 아펠가모 선릉에서 저희 두 사람이 부부의 연을 맺습니다.">
 <meta property="og:type" content="website">
 <meta property="og:title" data-ph="meta.title" content="{{신랑이름}} ♥ {{신부이름}} 결혼합니다">
-<meta property="og:description" data-ph="meta.desc" content="2027년 5월 15일 토요일 오후 1시, {{예식장}}">
+<meta property="og:description" data-ph="meta.desc" content="2026년 10월 31일 토요일 오후 2시, 아펠가모 선릉">
 <!-- og:image — assets/img/og.jpg (1800×946, 약 1.90:1)
      배포 주소 https://min-made.github.io/invitation/ 기준 절대경로입니다.
      주소가 바뀌면 og:image 와 og:url 을 함께 고쳐야 하며,
@@ -73,7 +73,7 @@
   <div class="intro__inner">
     <p class="intro__eyebrow">WE ARE GETTING MARRIED</p>
     <p class="intro__names" data-ph="couple.short">{{신랑이름}} &nbsp;·&nbsp; {{신부이름}}</p>
-    <p class="intro__date" data-ph="wedding.dateShort">2027 . 05 . 15</p>
+    <p class="intro__date" data-ph="wedding.dateShort">2026 . 10 . 31</p>
   </div>
 </div>
 
@@ -100,9 +100,9 @@
   </h1>
 
   <p class="cover__meta">
-    <span data-ph="wedding.datetime">2027년 5월 15일 토요일 오후 1시</span>
+    <span data-ph="wedding.datetime">2026년 10월 31일 토요일 오후 2시</span>
     <span class="cover__dot"></span>
-    <span data-ph="venue.short">{{예식장}}</span>
+    <span data-ph="venue.short">아펠가모 선릉</span>
   </p>
 </section>
 
@@ -205,11 +205,13 @@
   <p class="sect__label">DATE</p>
   <h2 class="sect__title">예식 일시</h2>
 
-  <p class="when__date" data-ph="wedding.datetime">2027년 5월 15일 토요일 오후 1시</p>
-  <p class="when__venue" data-ph="venue.name">{{예식장}}</p>
+  <p class="when__date" data-ph="wedding.datetime">2026년 10월 31일 토요일 오후 2시</p>
+  <p class="when__venue" data-ph="venue.name">아펠가모 선릉</p>
 
-  <!-- data-wedding: 달력·D-day 계산 기준 (YYYY-MM-DDTHH:mm) -->
-  <div class="calendar" id="calendar" data-wedding="2027-05-15T13:00"></div>
+  <!-- data-wedding: 달력·D-day·시간인식·꽃 계산의 단일 기준 (YYYY-MM-DDTHH:mm)
+       바꿀 때는 본문 날짜 문구 4곳과 assets/wedding.ics 의
+       DTSTART/DTEND 도 함께 고쳐야 합니다. -->
+  <div class="calendar" id="calendar" data-wedding="2026-10-31T14:00"></div>
 
   <p class="dday" id="dday" aria-live="polite"></p>
 </section>
@@ -261,14 +263,20 @@
   <p class="sect__label">LOCATION</p>
   <h2 class="sect__title">오시는 길</h2>
 
-  <p class="loc__venue" data-ph="venue.name">{{예식장}}</p>
-  <p class="loc__addr" data-ph="venue.address">서울특별시 강남구 테헤란로 123</p>
-  <p class="loc__tel"><a href="tel:0200000000" data-ph="venue.tel">02-000-0000</a></p>
+  <p class="loc__venue" data-ph="venue.name">아펠가모 선릉</p>
+  <p class="loc__addr" data-ph="venue.address">서울특별시 강남구 테헤란로 322<br>한신인터밸리24 빌딩 4층</p>
+  <p class="loc__tel"><a href="tel:0221830230" data-ph="venue.tel">02-2183-0230</a></p>
 
-  <!-- [CUSTOMIZE] 실제 지도: 네이버/카카오 지도 API 키 발급 후 이 박스를 교체 -->
-  <div class="map" id="map" role="img" aria-label="예식장 위치 지도">
-    <span class="map__hint">지도 영역<br><small>네이버/카카오 지도 API로 교체</small></span>
-  </div>
+  <!-- 약도 — 지도 API 대신 직접 만든 약도를 씁니다.
+       파일: assets/img/map.png
+       ⚠ tools/compress_photos.py 의 EXCLUDE 에 넣어 두었습니다.
+         1400px JPEG 로 재인코딩하면 약도의 글자가 뭉개집니다.
+       치수는 CSS 가 폭에 맞춰 조절하므로 width/height 를 적지 않습니다. -->
+  <figure class="map">
+    <img src="assets/img/map.png"
+         alt="예식장 약도 — 선릉역 4번 출구에서 테헤란로를 따라 맥도날드 방향"
+         loading="lazy" decoding="async">
+  </figure>
 
   <div class="btnrow">
     <a class="btn" data-map="naver" href="#" target="_blank" rel="noopener">네이버지도</a>
@@ -283,16 +291,13 @@
 
   <dl class="info">
     <dt>지하철</dt>
-    <dd data-ph="loc.subway">2호선 · 신분당선 강남역 4번 출구에서 도보 5분</dd>
-
-    <dt>버스</dt>
-    <dd data-ph="loc.bus">간선 140, 402, 470 / 지선 4412 — ○○빌딩 정류장 하차</dd>
+    <dd data-ph="loc.subway">2호선 · 수인분당선 <b>선릉역 4번 출구</b><br>IBK기업은행을 지나 50m 직진, 맥도날드 옆 건물 4층</dd>
 
     <dt>자가용</dt>
-    <dd data-ph="loc.car">내비게이션에 <b>“{{예식장}}”</b> 검색</dd>
+    <dd data-ph="loc.car">내비게이션에 <b>“아펠가모 선릉”</b> 검색</dd>
 
     <dt>주차</dt>
-    <dd data-ph="loc.parking">건물 지하 ○층~○층 ○○대 주차 가능 (○시간 무료)<br>만차 시 인근 ○○공영주차장 이용 — 안내요원 배치</dd>
+    <dd data-ph="loc.parking"><b>2시간</b> 무료, 이후 10분당 1,000원</dd>
   </dl>
 
   <!-- ────────────────────────────────────────────────────────
@@ -304,22 +309,33 @@
     <p class="shuttle__head">
       <span class="side side--groom">신랑측</span> 대절 버스 안내
     </p>
+    <p class="shuttle__date">2026년 10월 31일 (토)</p>
+
+    <ol class="bus">
+      <li class="bus__item">
+        <p class="bus__no">1호차</p>
+        <ul class="bus__stops" data-ph="bus.route1">
+          <li><time>오전 11:00</time><span>서산문화복지센터<small>삼성아파트 앞</small></span></li>
+        </ul>
+      </li>
+
+      <li class="bus__item">
+        <p class="bus__no">2호차</p>
+        <ul class="bus__stops" data-ph="bus.route2">
+          <li><time>오전 10:30</time><span>충서침례교회<small>인지</small></span></li>
+          <li><time>오전 10:50</time><span>시청<small>1호광장 버스정류장</small></span></li>
+        </ul>
+      </li>
+    </ol>
 
     <dl class="info">
-      <dt>탑승 장소</dt>
-      <dd data-ph="bus.place">○○시 ○○구 ○○동 — ○○ 앞<br>주차 후 탑승 가능</dd>
-
-      <dt>출발</dt>
-      <dd data-ph="bus.depart">예식일 오전 <b>○시 ○분</b> 출발<br>10분 전까지 도착해 주세요</dd>
-
       <dt>귀가</dt>
-      <dd data-ph="bus.return">예식 종료 후 오후 <b>○시 ○분</b> 출발<br>예식장 정문 앞에서 탑승</dd>
-
-      <dt>소요 시간</dt>
-      <dd data-ph="bus.duration">편도 약 ○시간 ○○분 (교통 상황에 따라 달라질 수 있습니다)</dd>
+      <dd data-ph="bus.return">예식 종료 후 예식장 앞에서 출발합니다<br>
+        <small>출발 시각은 확정 후 안내드리겠습니다</small></dd>
     </dl>
 
     <p class="shuttle__note" data-ph="bus.note">
+      출발 시각 10분 전까지 도착해 주세요.<br>
       좌석 확보를 위해 탑승 여부를 미리 알려주시면 감사하겠습니다.
     </p>
 
@@ -446,12 +462,14 @@
 </main>
 
 
-<!-- BGM 토글 -->
-<button type="button" class="bgm" id="bgm" aria-pressed="false" aria-label="배경음악 재생">
-  <span class="bgm__icon" aria-hidden="true"></span>
-</button>
-<!-- [CUSTOMIZE] assets/audio/bgm.mp3 를 넣으면 활성화됩니다 -->
-<audio id="bgmAudio" src="assets/audio/bgm.mp3" loop preload="none"></audio>
+<!-- BGM 은 사용하지 않기로 했습니다 (2026-09-03).
+     되살리려면 assets/audio/bgm.mp3 를 넣고 아래를 주석 해제하세요.
+     main.js 의 bgm() 블록과 style.css 의 .bgm 규칙도 함께 되살려야 합니다.
+  <button type="button" class="bgm" id="bgm" aria-pressed="false" aria-label="배경음악 재생">
+    <span class="bgm__icon" aria-hidden="true"></span>
+  </button>
+  <audio id="bgmAudio" src="assets/audio/bgm.mp3" loop preload="none"></audio>
+-->
 
 <!-- 갤러리 라이트박스 -->
 <div class="lightbox" id="lightbox" hidden>

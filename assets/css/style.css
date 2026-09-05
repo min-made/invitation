@@ -332,15 +332,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .loc__tel   { margin: 0 0 26px; font-size: var(--fs-cap); }
 .loc__tel a { color: var(--c-accent); text-decoration: none; }
 
-.map {
-  display: grid; place-items: center;
-  height: 210px;
-  margin-bottom: 14px;
-  background: var(--c-bg-tint);
-  border: 1px dashed var(--c-line);
-  border-radius: var(--radius);
-}
-.map__hint { font-size: var(--fs-cap); color: var(--c-ink-faint); line-height: 1.8; }
 
 .btnrow { display: flex; gap: 8px; margin-bottom: 34px; }
 .btn {
@@ -480,31 +471,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .foot__thanks { margin: 0; font-size: var(--fs-label); color: var(--c-ink-faint); }
 
 
-/* ── BGM 토글 ──────────────────────────────────────── */
-.bgm {
-  position: fixed; top: 14px; right: 14px; z-index: 60;
-  width: 38px; height: 38px;
-  display: grid; place-items: center;
-  border: 1px solid var(--c-line);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .82);
-  backdrop-filter: blur(6px);
-}
-.bgm__icon {
-  width: 12px; height: 12px;
-  border-radius: 1px;
-  background: var(--c-ink-soft);
-  transition: all .25s;
-}
-.bgm[aria-pressed="true"] .bgm__icon {
-  border-radius: 50%;
-  background: var(--c-accent);
-  animation: spin 3s linear infinite;
-  box-shadow: 0 0 0 3px var(--c-accent-bg);
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-
 /* ── 라이트박스 ────────────────────────────────────── */
 .lightbox {
   position: fixed; inset: 0; z-index: 90;
@@ -610,7 +576,49 @@ img {
   font-size: 1.05rem;
   line-height: 1.5;
 }
-.shuttle .info dt:first-of-type { margin-top: 12px; }
+.shuttle__date {
+  margin: 0 0 16px;
+  font-size: var(--fs-label);
+  letter-spacing: .06em;
+  color: var(--c-ink-faint);
+}
+
+/* 호차별 탑승 안내 — 2호차는 경유지가 두 곳이라 시각을 왼쪽에 정렬해
+   여러 정류장을 한눈에 훑을 수 있게 했습니다. */
+.bus { list-style: none; margin: 0; padding: 0; }
+.bus__item + .bus__item {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-line);
+}
+.bus__no {
+  margin: 0 0 8px;
+  font-size: var(--fs-label);
+  letter-spacing: .08em;
+  color: var(--c-groom-ink);
+}
+.bus__stops { list-style: none; margin: 0; padding: 0; }
+.bus__stops li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 4px 0;
+  font-size: var(--fs-cap);
+}
+.bus__stops time {
+  flex: 0 0 5.4em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-accent);
+}
+.bus__stops span { line-height: 1.5; }
+.bus__stops small {
+  display: block;
+  color: var(--c-ink-faint);
+  font-size: .88em;
+}
+
+.shuttle .info dt:first-of-type { margin-top: 18px; }
+.shuttle .info dd small { color: var(--c-ink-faint); }
 .shuttle__note {
   margin: 20px 0 0;
   padding-top: 16px;
@@ -659,4 +667,21 @@ img {
 .lightbox button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
+}
+
+
+/* ── 약도 ────────────────────────────────────────────────
+   지도 API 대신 직접 만든 약도 이미지입니다.
+   글자가 들어 있으므로 확대·축소로 흐려지지 않게 원본 비율만 맞춥니다. */
+.map {
+  margin: 0 0 14px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--c-surface);
+}
+.map img {
+  width: 100%;
+  height: auto;
+  display: block;
 }

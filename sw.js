@@ -6,6 +6,7 @@
      HTML·CSS·JS·폰트를 단말에 보관합니다.
 
    ⚠ 사진은 캐시하지 않습니다 (초상권 보호)
+     예외를 두려면 CACHE_ALLOW 를 보세요. 기본값은 비어 있습니다.
      · PRECACHE 목록에 사진이 없습니다.
      · PHOTO 정규식에 걸리는 요청은 캐시를 거치지 않고 네트워크로만 갑니다.
        (cache.put 을 호출하는 경로가 아예 없습니다)
@@ -27,6 +28,16 @@ const CACHE = 'invi-v1';
 
 // 사진 — 절대 캐시하지 않을 대상
 const PHOTO = /\.(jpe?g|png|webp|gif|avif|bmp|tiff?|heic)$/i;
+
+// PHOTO 에 걸리지만 캐시를 허용할 예외 (파일명 기준).
+//
+// ⚠ 사람이 찍힌 사진은 절대 넣지 마세요. 초상권 보호가 PHOTO 규칙의 목적이고,
+//   여기 넣는 순간 그 파일은 하객 단말에 영구히 남습니다.
+//
+// 약도(map.png)처럼 사람이 없고 오프라인에서 꼭 필요한 이미지만 대상입니다.
+// 예식장 지하·로비에서 길찾기가 되게 하려면 아래를 이렇게 바꾸세요.
+//     const CACHE_ALLOW = ['map.png'];
+const CACHE_ALLOW = [];
 
 // 첫 설치 때 미리 받아둘 것 (사진 없음)
 const PRECACHE = [
@@ -66,8 +77,11 @@ self.addEventListener('activate', (event) => {
       const cache = await caches.open(CACHE);
       const reqs = await cache.keys();
       await Promise.all(
-        reqs.filter((r) => PHOTO.test(new URL(r.url).pathname))
-            .map((r) => cache.delete(r))
+        reqs.filter((r) => {
+          const path = new URL(r.url).pathname;
+          const name = path.split('/').pop();
+          return PHOTO.test(path) && CACHE_ALLOW.indexOf(name) === -1;
+        }).map((r) => cache.delete(r))
       );
 
       await self.clients.claim();
@@ -84,7 +98,9 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;      // 외부 요청은 관여하지 않음
 
   // ── 사진: 네트워크 전용. 캐시를 읽지도, 쓰지도 않습니다. ──
-  if (PHOTO.test(url.pathname)) {
+  //    CACHE_ALLOW 에 파일명이 있으면 예외로 캐시합니다.
+  const file = url.pathname.split('/').pop();
+  if (PHOTO.test(url.pathname) && CACHE_ALLOW.indexOf(file) === -1) {
     event.respondWith(fetch(req));
     return;
   }
