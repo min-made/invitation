@@ -143,13 +143,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   color: var(--c-ink-soft);
 }
 .quote p { margin: 0 0 12px; line-height: 1.95; }
-.quote cite {
-  font-family: var(--f-sans);
-  font-size: var(--fs-label);
-  font-style: normal;
-  letter-spacing: .1em;
-  color: var(--c-ink-faint);
-}
 .quote::before {
   content: "";
   display: block;
