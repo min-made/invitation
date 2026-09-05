@@ -37,6 +37,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 빌드 도구 설치
+        run: pip install --quiet pyyaml fonttools brotli
+
+      - name: config 복원 후 index.html 생성
+        # 실제 이름·연락처·계좌는 저장소에 없습니다.
+        # Actions Secret 에서 받아 여기서만 사용하고, 로그에 남기지 않습니다.
+        #   Settings → Secrets and variables → Actions → WEDDING_CONFIG
+        env:
+          WEDDING_CONFIG: ${{ secrets.WEDDING_CONFIG }}
+        run: |
+          if [ -z "$WEDDING_CONFIG" ]; then
+            echo "::error::WEDDING_CONFIG secret 이 비어 있습니다. 배포를 중단합니다."
+            exit 1
+          fi
+          printf '%s' "$WEDDING_CONFIG" > config.yaml
+          python tools/build.py --config config.yaml
+          rm -f config.yaml
+
+      - name: 폰트 서브셋 재생성
+        # Pretendard 는 본문에 실제로 쓰인 글자만 담습니다.
+        # 실명이 들어간 뒤 다시 만들지 않으면 그 글자만 시스템 폰트로 보입니다.
+        run: python tools/fetch_fonts.py
+
+
       - name: 게시할 파일만 dist/ 로 모으기
         run: |
           mkdir -p dist
@@ -62,6 +90,13 @@ jobs:
         run: |
           echo "── dist/ 최상위 ──"
           ls -A dist
+          for f in index.html assets/wedding.ics assets/font/pretendard-subset.woff2; do
+            [ -s "dist/$f" ] || { echo "::error::생성물 누락: $f"; exit 1; }
+          done
+          if grep -q '{{' dist/index.html; then
+            echo "::error::index.html 에 치환되지 않은 토큰이 남아 있습니다"
+            exit 1
+          fi
           for f in README.md CUSTOMIZE.md references.md references-analysis.md tools .claude; do
             if [ -e "dist/$f" ]; then
               echo "::error::dist/$f 가 포함되었습니다. 게시 대상이 아닙니다."

@@ -10,10 +10,10 @@
      og:image 는 절대경로여야 카카오톡에서 썸네일이 뜹니다.
      GitHub Pages 배포 주소로 바꿔주세요.
      ──────────────────────────────────────────────────────────── -->
-<title data-ph="meta.title">{{신랑이름}} ♥ {{신부이름}} 결혼합니다</title>
+<title data-ph="meta.title">{{groom.name}} ♥ {{bride.name}} 결혼합니다</title>
 <meta name="description" data-ph="meta.desc" content="2026년 10월 31일 토요일 오후 2시, 아펠가모 선릉에서 저희 두 사람이 부부의 연을 맺습니다.">
 <meta property="og:type" content="website">
-<meta property="og:title" data-ph="meta.title" content="{{신랑이름}} ♥ {{신부이름}} 결혼합니다">
+<meta property="og:title" data-ph="meta.title" content="{{groom.name}} ♥ {{bride.name}} 결혼합니다">
 <meta property="og:description" data-ph="meta.desc" content="2026년 10월 31일 토요일 오후 2시, 아펠가모 선릉">
 <!-- og:image — assets/img/og.jpg (1800×946, 약 1.90:1)
      배포 주소 https://min-made.github.io/invitation/ 기준 절대경로입니다.
@@ -72,7 +72,7 @@
 <div class="intro" id="intro" aria-hidden="true">
   <div class="intro__inner">
     <p class="intro__eyebrow">WE ARE GETTING MARRIED</p>
-    <p class="intro__names" data-ph="couple.short">{{신랑이름}} &nbsp;·&nbsp; {{신부이름}}</p>
+    <p class="intro__names" data-ph="couple.short">{{groom.name}} &nbsp;·&nbsp; {{bride.name}}</p>
     <p class="intro__date" data-ph="wedding.dateShort">2026 . 10 . 31</p>
   </div>
 </div>
@@ -94,9 +94,9 @@
   </figure>
 
   <h1 class="cover__names">
-    <span data-ph="groom.name">{{신랑이름}}</span>
+    <span data-ph="groom.name">{{groom.name}}</span>
     <span class="cover__amp">&amp;</span>
-    <span data-ph="bride.name">{{신부이름}}</span>
+    <span data-ph="bride.name">{{bride.name}}</span>
   </h1>
 
   <p class="cover__meta">
@@ -152,35 +152,35 @@
   <ul class="family">
     <li class="family__row">
       <p class="family__parents">
-        <span data-ph="groom.father">{{신랑부}}</span>
+        <span data-ph="groom.father">{{groom.father}}</span>
         <span class="family__sep">·</span>
-        <span data-ph="groom.mother">{{신랑모}}</span>
+        <span data-ph="groom.mother">{{groom.mother}}</span>
         <span class="family__rel">의 아들</span>
       </p>
       <p class="family__person">
         <span class="family__role">신랑</span>
-        <span class="family__name" data-ph="groom.name">{{신랑이름}}</span>
+        <span class="family__name" data-ph="groom.name">{{groom.name}}</span>
       </p>
       <p class="family__contact">
-        <a class="chip" href="tel:01000000000" data-ph="groom.tel" aria-label="신랑에게 전화">전화</a>
-        <a class="chip" href="sms:01000000000" data-ph="groom.sms" aria-label="신랑에게 문자">문자</a>
+        <a class="chip" href="tel:{{groom.tel}}" data-ph="groom.tel" aria-label="신랑에게 전화">전화</a>
+        <a class="chip" href="sms:{{groom.tel}}" data-ph="groom.sms" aria-label="신랑에게 문자">문자</a>
       </p>
     </li>
 
     <li class="family__row">
       <p class="family__parents">
-        <span data-ph="bride.father">{{신부부}}</span>
+        <span data-ph="bride.father">{{bride.father}}</span>
         <span class="family__sep">·</span>
-        <span data-ph="bride.mother">{{신부모}}</span>
+        <span data-ph="bride.mother">{{bride.mother}}</span>
         <span class="family__rel">의 딸</span>
       </p>
       <p class="family__person">
         <span class="family__role">신부</span>
-        <span class="family__name" data-ph="bride.name">{{신부이름}}</span>
+        <span class="family__name" data-ph="bride.name">{{bride.name}}</span>
       </p>
       <p class="family__contact">
-        <a class="chip" href="tel:01000000000" data-ph="bride.tel" aria-label="신부에게 전화">전화</a>
-        <a class="chip" href="sms:01000000000" data-ph="bride.sms" aria-label="신부에게 문자">문자</a>
+        <a class="chip" href="tel:{{bride.tel}}" data-ph="bride.tel" aria-label="신부에게 전화">전화</a>
+        <a class="chip" href="sms:{{bride.tel}}" data-ph="bride.sms" aria-label="신부에게 문자">문자</a>
       </p>
     </li>
   </ul>
@@ -188,10 +188,10 @@
   <details class="disclose">
     <summary>혼주에게 연락하기</summary>
     <ul class="disclose__list">
-      <li><span class="side side--groom">신랑 아버지</span><a class="chip" href="tel:01000000000" data-ph="groom.fatherTel">전화</a></li>
-      <li><span class="side side--groom">신랑 어머니</span><a class="chip" href="tel:01000000000" data-ph="groom.motherTel">전화</a></li>
-      <li><span class="side side--bride">신부 아버지</span><a class="chip" href="tel:01000000000" data-ph="bride.fatherTel">전화</a></li>
-      <li><span class="side side--bride">신부 어머니</span><a class="chip" href="tel:01000000000" data-ph="bride.motherTel">전화</a></li>
+      <li><span class="side side--groom">신랑 아버지</span><a class="chip" href="tel:{{groom.fatherTel}}" data-ph="groom.fatherTel">전화</a></li>
+      <li><span class="side side--groom">신랑 어머니</span><a class="chip" href="tel:{{groom.motherTel}}" data-ph="groom.motherTel">전화</a></li>
+      <li><span class="side side--bride">신부 아버지</span><a class="chip" href="tel:{{bride.fatherTel}}" data-ph="bride.fatherTel">전화</a></li>
+      <li><span class="side side--bride">신부 어머니</span><a class="chip" href="tel:{{bride.motherTel}}" data-ph="bride.motherTel">전화</a></li>
     </ul>
   </details>
 </section>
@@ -268,14 +268,17 @@
   <p class="loc__tel"><a href="tel:0221830230" data-ph="venue.tel">02-2183-0230</a></p>
 
   <!-- 약도 — 지도 API 대신 직접 만든 약도를 씁니다.
-       파일: assets/img/map.png
+       파일: assets/img/map.webp (+ 구형 기기용 map.jpg 폴백)
        ⚠ tools/compress_photos.py 의 EXCLUDE 에 넣어 두었습니다.
          1400px JPEG 로 재인코딩하면 약도의 글자가 뭉개집니다.
        치수는 CSS 가 폭에 맞춰 조절하므로 width/height 를 적지 않습니다. -->
   <figure class="map">
-    <img src="assets/img/map.png"
-         alt="예식장 약도 — 선릉역 4번 출구에서 테헤란로를 따라 맥도날드 방향"
-         loading="lazy" decoding="async">
+    <picture>
+      <source srcset="assets/img/map.webp" type="image/webp">
+      <img src="assets/img/map.jpg"
+           alt="예식장 약도 — 선릉역 4번 출구에서 테헤란로를 따라 맥도날드 방향"
+           loading="lazy" decoding="async">
+    </picture>
   </figure>
 
   <div class="btnrow">
@@ -341,8 +344,8 @@
 
     <p class="shuttle__contact">
       <span>탑승 문의</span>
-      <a class="chip" href="tel:01000000000" data-ph="bus.tel">전화</a>
-      <a class="chip" href="sms:01000000000" data-ph="bus.sms">문자</a>
+      <a class="chip" href="tel:{{bus.tel}}" data-ph="bus.tel">전화</a>
+      <a class="chip" href="sms:{{bus.tel}}" data-ph="bus.sms">문자</a>
     </p>
   </div>
 </section>
@@ -366,19 +369,19 @@
     <summary class="acc__head">신랑측 계좌번호</summary>
     <ul class="acc__list">
       <li class="acct">
-        <div class="acct__who"><span class="acct__rel">신랑</span> <span data-ph="groom.name">{{신랑이름}}</span></div>
-        <div class="acct__no"><span data-ph="groom.bank">국민은행 000000-00-000000</span></div>
-        <button type="button" class="chip chip--copy" data-copy="국민은행 000000-00-000000">복사</button>
+        <div class="acct__who"><span class="acct__rel">신랑</span> <span data-ph="groom.name">{{groom.name}}</span></div>
+        <div class="acct__no"><span data-ph="groom.bank">{{groom.bank}}</span></div>
+        <button type="button" class="chip chip--copy" data-copy="{{groom.bank}}">복사</button>
       </li>
       <li class="acct">
-        <div class="acct__who"><span class="acct__rel">아버지</span> <span data-ph="groom.father">{{신랑부}}</span></div>
-        <div class="acct__no"><span data-ph="groom.fatherBank">신한은행 000-000-000000</span></div>
-        <button type="button" class="chip chip--copy" data-copy="신한은행 000-000-000000">복사</button>
+        <div class="acct__who"><span class="acct__rel">아버지</span> <span data-ph="groom.father">{{groom.father}}</span></div>
+        <div class="acct__no"><span data-ph="groom.fatherBank">{{groom.fatherBank}}</span></div>
+        <button type="button" class="chip chip--copy" data-copy="{{groom.fatherBank}}">복사</button>
       </li>
       <li class="acct">
-        <div class="acct__who"><span class="acct__rel">어머니</span> <span data-ph="groom.mother">{{신랑모}}</span></div>
-        <div class="acct__no"><span data-ph="groom.motherBank">농협 000-0000-0000-00</span></div>
-        <button type="button" class="chip chip--copy" data-copy="농협 000-0000-0000-00">복사</button>
+        <div class="acct__who"><span class="acct__rel">어머니</span> <span data-ph="groom.mother">{{groom.mother}}</span></div>
+        <div class="acct__no"><span data-ph="groom.motherBank">{{groom.motherBank}}</span></div>
+        <button type="button" class="chip chip--copy" data-copy="{{groom.motherBank}}">복사</button>
       </li>
     </ul>
   </details>
@@ -387,19 +390,19 @@
     <summary class="acc__head">신부측 계좌번호</summary>
     <ul class="acc__list">
       <li class="acct">
-        <div class="acct__who"><span class="acct__rel">신부</span> <span data-ph="bride.name">{{신부이름}}</span></div>
-        <div class="acct__no"><span data-ph="bride.bank">카카오뱅크 0000-00-0000000</span></div>
-        <button type="button" class="chip chip--copy" data-copy="카카오뱅크 0000-00-0000000">복사</button>
+        <div class="acct__who"><span class="acct__rel">신부</span> <span data-ph="bride.name">{{bride.name}}</span></div>
+        <div class="acct__no"><span data-ph="bride.bank">{{bride.bank}}</span></div>
+        <button type="button" class="chip chip--copy" data-copy="{{bride.bank}}">복사</button>
       </li>
       <li class="acct">
-        <div class="acct__who"><span class="acct__rel">아버지</span> <span data-ph="bride.father">{{신부부}}</span></div>
-        <div class="acct__no"><span data-ph="bride.fatherBank">우리은행 0000-000-000000</span></div>
-        <button type="button" class="chip chip--copy" data-copy="우리은행 0000-000-000000">복사</button>
+        <div class="acct__who"><span class="acct__rel">아버지</span> <span data-ph="bride.father">{{bride.father}}</span></div>
+        <div class="acct__no"><span data-ph="bride.fatherBank">{{bride.fatherBank}}</span></div>
+        <button type="button" class="chip chip--copy" data-copy="{{bride.fatherBank}}">복사</button>
       </li>
       <li class="acct">
-        <div class="acct__who"><span class="acct__rel">어머니</span> <span data-ph="bride.mother">{{신부모}}</span></div>
-        <div class="acct__no"><span data-ph="bride.motherBank">하나은행 000-000000-00000</span></div>
-        <button type="button" class="chip chip--copy" data-copy="하나은행 000-000000-00000">복사</button>
+        <div class="acct__who"><span class="acct__rel">어머니</span> <span data-ph="bride.mother">{{bride.mother}}</span></div>
+        <div class="acct__no"><span data-ph="bride.motherBank">{{bride.motherBank}}</span></div>
+        <button type="button" class="chip chip--copy" data-copy="{{bride.motherBank}}">복사</button>
       </li>
     </ul>
   </details>
@@ -412,7 +415,7 @@
 <!-- data-endpoint: 방명록 저장 주소. 비워두면 미리보기 모드(로컬 저장)입니다.
      Apps Script 웹앱 URL 을 넣으세요 — tools/apps_script_guestbook.gs 참고.
      ⚠ 이 값은 브라우저에 그대로 노출됩니다. 쓰기 전용으로 배포하세요. -->
-<section class="sect reveal" id="guestbook" data-endpoint="https://script.google.com/macros/s/AKfycbzlGiZGK7Di5cUlHPAVJpuiTVgYOdNK0mxkeNgJOCVEHk7Esp2d6yl7dvf5Qv65Ets6JQ/exec">
+<section class="sect reveal" id="guestbook" data-endpoint="{{guestbook.endpoint}}">
   <p class="sect__label">GUESTBOOK</p>
   <h2 class="sect__title">축하의 한마디</h2>
 
@@ -452,9 +455,9 @@
 
 <footer class="foot">
   <p class="foot__names">
-    <span data-ph="groom.name">{{신랑이름}}</span>
+    <span data-ph="groom.name">{{groom.name}}</span>
     <span>&amp;</span>
-    <span data-ph="bride.name">{{신부이름}}</span>
+    <span data-ph="bride.name">{{bride.name}}</span>
   </p>
   <p class="foot__thanks">소중한 걸음으로 축복해 주셔서 감사합니다.</p>
 </footer>

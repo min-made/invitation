@@ -8,7 +8,7 @@ UID:wedding-20261031@min-made.github.io
 DTSTAMP:20260902T000000Z
 DTSTART:20261031T050000Z
 DTEND:20261031T070000Z
-SUMMARY:{{신랑이름}} ♥ {{신부이름}} 결혼식
+SUMMARY:{{groom.name}} ♥ {{bride.name}} 결혼식
 LOCATION:아펠가모 선릉 (서울 강남구 테헤란로 322 한신인터밸리24 4층)
 DESCRIPTION:https://min-made.github.io/invitation/
 BEGIN:VALARM

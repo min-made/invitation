@@ -1,0 +1,61 @@
+# ════════════════════════════════════════════════════════════
+# 청첩장 개인정보 설정 — 예시 파일
+#
+# 사용법
+#   cp config.example.yaml config.yaml
+#   config.yaml 을 채운 뒤:
+#     uv run --no-project --with pyyaml tools/build.py
+#
+# ⚠ config.yaml 은 커밋되지 않습니다 (.gitignore).
+#   실제 배포는 이 파일 내용을 GitHub Actions Secret 에 넣어 CI 가 빌드합니다.
+#     저장소 Settings → Secrets and variables → Actions → New secret
+#     이름: WEDDING_CONFIG
+#     값:   채워진 config.yaml 전체 내용을 그대로 붙여넣기
+#
+# 값이 비어 있으면 빌드가 실패합니다. 실수로 {{groom.name}} 이
+# 그대로 배포되는 것을 막기 위한 장치입니다.
+#
+# 쓰지 않을 항목은 빈 값 대신 아래 "생략하는 법" 을 참고하세요.
+# ════════════════════════════════════════════════════════════
+
+groom:
+  name:        # 신랑 이름            예: 홍길동
+  father:      # 신랑 아버지 성함
+  mother:      # 신랑 어머니 성함
+  tel:         # 신랑 연락처          예: 010-1234-5678
+               #   전화·문자 버튼에 같이 쓰입니다.
+               #   하이픈은 넣어도 됩니다 (빌드가 tel: 링크용으로 떼어냅니다)
+  fatherTel:   # 신랑 아버지 연락처
+  motherTel:   # 신랑 어머니 연락처
+  bank:        # 신랑 계좌            예: 국민은행 123456-78-901234
+               #   화면 표시와 복사 버튼에 같은 값이 들어갑니다
+  fatherBank:  # 신랑 아버지 계좌
+  motherBank:  # 신랑 어머니 계좌
+
+bride:
+  name:        # 신부 이름
+  father:      # 신부 아버지 성함
+  mother:      # 신부 어머니 성함
+  tel:         # 신부 연락처
+  fatherTel:   # 신부 아버지 연락처
+  motherTel:   # 신부 어머니 연락처
+  bank:        # 신부 계좌
+  fatherBank:  # 신부 아버지 계좌
+  motherBank:  # 신부 어머니 계좌
+
+bus:
+  tel:         # 대절 버스 탑승 문의 연락처 (신랑측)
+
+guestbook:
+  endpoint:    # Apps Script 웹앱 URL
+               # 예: https://script.google.com/macros/s/AKfy.../exec
+               # 비워두면 방명록이 미리보기 모드로 동작합니다
+
+
+# ── 생략하는 법 ─────────────────────────────────────────────
+# 특정 항목을 아예 쓰지 않으려면 (예: 혼주 연락처를 공개하지 않음)
+# config 를 비우는 대신 index.template.html 에서 해당 블록을 삭제하세요.
+# 토큰이 사라지면 config 값도 필요 없어집니다.
+#
+# 남은 토큰과 config 키가 어긋나면 빌드가 무엇이 비었는지 알려줍니다
+# (키 이름만 출력하며, 값은 절대 출력하지 않습니다).
