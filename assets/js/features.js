@@ -25,7 +25,7 @@
     addCalendar:  true,   // [6] 하객 캘린더에 예식 일정 추가
     miniNav:      true,   // [7] 하단 고정 미니 내비
     paperTexture: true,   // [10] 한지 질감 배경
-    bloom:        true,   // [12] D-day 에 따라 피어나는 꽃
+    bloom:        false,   // [12] D-day 에 따라 피어나는 꽃
 
     // 방명록 공개 범위
     //   true  → ③ 하객들이 쓴 축하를 전부 목록으로 보여줍니다
