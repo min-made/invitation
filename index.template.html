@@ -191,10 +191,26 @@
   <details class="disclose">
     <summary>혼주에게 연락하기</summary>
     <ul class="disclose__list">
-      <li><span class="side side--groom">신랑 아버지</span><a class="chip" href="tel:{{groom.fatherTel}}" data-ph="groom.fatherTel">전화</a></li>
-      <li><span class="side side--groom">신랑 어머니</span><a class="chip" href="tel:{{groom.motherTel}}" data-ph="groom.motherTel">전화</a></li>
-      <li><span class="side side--bride">신부 아버지</span><a class="chip" href="tel:{{bride.fatherTel}}" data-ph="bride.fatherTel">전화</a></li>
-      <li><span class="side side--bride">신부 어머니</span><a class="chip" href="tel:{{bride.motherTel}}" data-ph="bride.motherTel">전화</a></li>
+      <li><span>신랑 아버지</span>
+        <span class="disclose__btns">
+          <a class="chip" href="tel:{{groom.fatherTel}}" data-ph="groom.fatherTel">전화</a>
+          <a class="chip" href="sms:{{groom.fatherTel}}" data-ph="groom.fatherSms">문자</a>
+        </span></li>
+      <li><span>신랑 어머니</span>
+        <span class="disclose__btns">
+          <a class="chip" href="tel:{{groom.motherTel}}" data-ph="groom.motherTel">전화</a>
+          <a class="chip" href="sms:{{groom.motherTel}}" data-ph="groom.motherSms">문자</a>
+        </span></li>
+      <li><span>신부 아버지</span>
+        <span class="disclose__btns">
+          <a class="chip" href="tel:{{bride.fatherTel}}" data-ph="bride.fatherTel">전화</a>
+          <a class="chip" href="sms:{{bride.fatherTel}}" data-ph="bride.fatherSms">문자</a>
+        </span></li>
+      <li><span>신부 어머니</span>
+        <span class="disclose__btns">
+          <a class="chip" href="tel:{{bride.motherTel}}" data-ph="bride.motherTel">전화</a>
+          <a class="chip" href="sms:{{bride.motherTel}}" data-ph="bride.motherSms">문자</a>
+        </span></li>
     </ul>
   </details>
 </section>
@@ -313,7 +329,7 @@
        ──────────────────────────────────────────────────────── -->
   <div class="shuttle">
     <p class="shuttle__head">
-      <span class="side side--groom">신랑측</span> 대절 버스 안내
+      신랑측 대절 버스 안내
     </p>
     <p class="shuttle__date">2026년 10월 31일 (토)</p>
 

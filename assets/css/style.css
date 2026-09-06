@@ -214,30 +214,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
   font-size: var(--fs-cap);
   color: var(--c-ink-soft);
 }
+/* 전화·문자 두 버튼을 한 덩어리로 묶어 오른쪽에 붙입니다.
+   묶지 않으면 space-between 이 세 요소를 균등하게 벌립니다. */
+.disclose__btns { display: flex; gap: 8px; flex: 0 0 auto; }
 
-/* 혼주 구분 라벨 — 신랑측(블루) / 신부측(로즈)
-   색면을 요소 배경으로 직접 깔지 않고 ::before 에 깔아 blur 를 먹입니다.
-   그래야 경계가 사각형으로 떨어지지 않고 베이지 바탕에 스며듭니다.
-   (요소 배경에 blur 를 주면 글자까지 흐려집니다.) */
-.side {
-  position: relative;
-  isolation: isolate;      /* ::before 의 z-index:-1 을 이 요소 안에 가둠 */
-  display: inline-block;
-  padding: 1px 3px;        /* 글자에 딱 붙는 크기 */
-  line-height: 1.4;
-}
-.side::before {
-  content: "";
-  position: absolute;
-  inset: -1px -2px;        /* blur 로 옅어지는 만큼 살짝 넓게 */
-  border-radius: 3px;
-  filter: blur(2.5px);     /* 경계 흐리기 */
-  z-index: -1;
-}
-.side--groom { color: var(--c-groom-ink); }
-.side--groom::before { background: var(--c-groom-bg); }
-.side--bride { color: var(--c-bride-ink); }
-.side--bride::before { background: var(--c-bride-bg); }
 
 
 /* ── [4][5] 일시 · 캘린더 · D-day ──────────────────── */
@@ -588,7 +568,7 @@ img {
   margin: 0 0 8px;
   font-size: var(--fs-label);
   letter-spacing: .08em;
-  color: var(--c-groom-ink);
+  color: var(--c-accent);
 }
 .bus__stops { list-style: none; margin: 0; padding: 0; }
 .bus__stops li {
