@@ -321,23 +321,24 @@
       <li class="bus__item">
         <p class="bus__no">1호차</p>
         <ul class="bus__stops" data-ph="bus.route1">
-          <li><time>오전 11:00</time><span>서산문화복지센터<small>삼성아파트 앞</small></span></li>
+          <li><time>{{bus.car1.time}}</time><span>서산문화복지센터<small>삼성아파트 앞</small></span></li>
         </ul>
       </li>
 
       <li class="bus__item">
         <p class="bus__no">2호차</p>
         <ul class="bus__stops" data-ph="bus.route2">
-          <li><time>오전 10:30</time><span>충서침례교회<small>인지</small></span></li>
-          <li><time>오전 10:50</time><span>시청<small>1호광장 버스정류장</small></span></li>
+          <li><time>{{bus.car2.time1}}</time><span>충서침례교회<small>인지</small></span></li>
+          <li><time>{{bus.car2.time2}}</time><span>시청<small>1호광장 버스정류장</small></span></li>
         </ul>
       </li>
     </ol>
 
     <dl class="info">
       <dt>귀가</dt>
-      <dd data-ph="bus.return">예식 종료 후 예식장 앞에서 출발합니다<br>
-        <small>출발 시각은 확정 후 안내드리겠습니다</small></dd>
+      <!-- 문장 전체가 config 값입니다. 시각이 미정일 때도
+           "확정 후 안내드리겠습니다" 처럼 자연스럽게 쓸 수 있도록 한 것입니다. -->
+      <dd data-ph="bus.return">{{bus.return}}</dd>
     </dl>
 
     <p class="shuttle__note" data-ph="bus.note">
