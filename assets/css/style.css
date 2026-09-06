@@ -620,14 +620,6 @@ img {
   color: var(--c-ink-soft);
   line-height: 1.8;
 }
-.shuttle__contact {
-  display: flex; align-items: center; gap: 8px;
-  margin: 14px 0 0;
-  font-size: var(--fs-label);
-  color: var(--c-ink-faint);
-  letter-spacing: .06em;
-}
-.shuttle__contact span { margin-right: auto; }
 
 
 /* ── 키보드 포커스 표시 ──────────────────────────────────
