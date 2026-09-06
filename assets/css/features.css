@@ -13,22 +13,39 @@
 /* ── [1] 시간 인식 — 상단 안내 띠 ─────────────────────── */
 .phasebar {
   margin: 0;
-  padding: 13px var(--pad-x);
+  padding: 18px var(--pad-x);
   text-align: center;
-  font-size: var(--fs-cap);
-  line-height: 1.6;
-  color: var(--c-ink-soft);
+  font-size: var(--fs-body);       /* 0.8 → 0.95rem */
+  line-height: 1.7;
+  letter-spacing: -.01em;
+  color: var(--c-ink);
   background: var(--c-accent-bg);
   border-bottom: 1px solid var(--c-line);
 }
-.phasebar b { color: var(--c-accent); font-weight: 600; }
+.phasebar b {
+  color: var(--c-accent);
+  font-weight: 700;
+  font-size: 1.08em;               /* 핵심 문구를 한 단계 키웁니다 */
+}
 
+/* 예식 당일 — 가장 강하게. 하객이 길을 찾는 순간입니다. */
 .phasebar--day {
+  padding: 22px var(--pad-x);
   background: var(--c-accent);
   color: var(--c-accent-on);
   border-bottom-color: var(--c-accent);
+  font-size: 1.02rem;
 }
-.phasebar--day b { color: var(--c-accent-on); }
+.phasebar--day b {
+  color: var(--c-accent-on);
+  font-size: 1.15em;
+}
+
+/* 예식 이후 — 차분하게 */
+.phasebar--after {
+  background: var(--c-surface);
+  color: var(--c-ink-soft);
+}
 
 /* 미리보기(?preview=) 로 강제한 상태임을 개발 중에만 표시 */
 .is-preview .phasebar::after {

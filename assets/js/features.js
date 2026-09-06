@@ -269,8 +269,17 @@
     var cover = $('#cover');
     if (!cover) return;
 
-    var d = daysUntil();
-    var t = d === null ? 1 : Math.max(0, Math.min(1, 1 - d / 100));
+    // ?preview 로 상태를 강제하면 꽃도 그에 맞춥니다.
+    // 그래야 "당일에 만개하는지" 를 오늘 눈으로 확인할 수 있습니다.
+    var forced = new URLSearchParams(location.search).get('preview');
+    var t;
+    if (forced === 'day' || forced === 'after') t = 1;
+    else if (forced === 'soon') t = 0.93;
+    else if (forced === 'before') t = 0;
+    else {
+      var d = daysUntil();
+      t = d === null ? 1 : Math.max(0, Math.min(1, 1 - d / 100));
+    }
     root.style.setProperty('--bloom', t.toFixed(3));
     cover.classList.add('has-bloom');
   })();

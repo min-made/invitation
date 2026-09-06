@@ -272,24 +272,34 @@
   (function share() {
     var linkBtn = $('#shareLink'), kakaoBtn = $('#shareKakao');
 
+    /* 공유용 기본 주소 — 쿼리스트링을 반드시 떼어냅니다.
+       location.href 를 그대로 쓰면 ?to=홍길동 이 딸려 나가서,
+       그 링크를 받은 다른 하객에게 "홍길동 님께" 가 보입니다.
+       ?preview=day 같은 개발용 파라미터도 같은 이유로 제거합니다. */
+    function shareUrl() {
+      var path = location.pathname.replace(/index\.html$/, '');
+      return location.origin + path;
+    }
+
     if (linkBtn) {
       linkBtn.addEventListener('click', function () {
-        copy(location.href, '청첩장 링크를 복사했습니다');
+        copy(shareUrl(), '청첩장 링크를 복사했습니다');
       });
     }
 
     if (!kakaoBtn) return;
     kakaoBtn.addEventListener('click', function () {
+      var url = shareUrl();
       if (KAKAO_JS_KEY && window.Kakao) {
         if (!window.Kakao.isInitialized()) window.Kakao.init(KAKAO_JS_KEY);
-        window.Kakao.Share.sendScrap({ requestUrl: location.href });
+        window.Kakao.Share.sendScrap({ requestUrl: url });
         return;
       }
       // SDK 미설정 — Web Share API 로 대체
       if (navigator.share) {
-        navigator.share({ title: document.title, url: location.href }).catch(function () {});
+        navigator.share({ title: document.title, url: url }).catch(function () {});
       } else {
-        copy(location.href, '카카오 키 미설정 — 링크를 복사했습니다');
+        copy(url, '카카오 키 미설정 — 링크를 복사했습니다');
       }
     });
   })();
